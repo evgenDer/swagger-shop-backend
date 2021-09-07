@@ -23,6 +23,38 @@ paths:
             type: array
             items:        
               $ref: '#/definitions/Product'
+    post:
+      tags:
+      - Products
+      summary: Add new product to the store
+      operationId: createProduct
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Product object that needs to be added to the store
+        required: true
+        schema:
+          type: object
+          required: 
+            - title
+          properties:
+            title:
+              type: string
+            price:
+              type: number
+            count:
+              type: integer
+            description:
+              type: string
+      responses:
+        201:
+          description: Created product
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: Bad request
   /products/{productId}:
     get:
       tags:
@@ -45,6 +77,8 @@ paths:
             properties: 
               product:
                 $ref: '#/definitions/Product'
+        400:
+          description: Bad request
         404:
           description: Product not found
 definitions:
